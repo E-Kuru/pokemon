@@ -18,16 +18,12 @@ const Home = () => {
   const getPokemon = id => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then(response => response.json())
-      .then(data => setPokemon(data))
+      .then(res => setPokemon(res))
   }
 
   const handleButtonClick = () => {
     const randomId = Math.floor(Math.random() * 151 + 1)
     getPokemon(randomId)
-
-    // fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`)
-    //   .then(response => response.json())
-    //   .then(data => setPokemon(data))
   }
 
   if (!pokemon) {
