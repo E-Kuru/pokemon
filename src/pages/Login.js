@@ -3,14 +3,24 @@ import * as Yup from "yup"
 import { Input, Button } from "@chakra-ui/react"
 import { FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/form-control"
 
+import {LogContext} from '../contexts/IsLog'
+import { useContext } from "react"
+
 const Login = () => {
+
+  const {isLogged, setIsLogged} = useContext(LogContext)
+
+  const handleLogOut = () => {
+    setIsLogged(false)
+  }
+
   const formik = useFormik({
     initialValues: {
       username: "Benoit",
       password: "yoyoyoyo"
     },
-    onSubmit: values => {
-      console.log(values)
+    onSubmit: () => {
+      setIsLogged(true)
     },
     validationSchema: Yup.object().shape({
       username: Yup.string()
@@ -24,7 +34,9 @@ const Login = () => {
   })
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <>
+    {!isLogged ? 
+      <form onSubmit={formik.handleSubmit}>
       <FormControl id="username" w="300px" isInvalid={formik.errors.username}>
         <FormLabel>Username</FormLabel>
         <Input
@@ -50,7 +62,11 @@ const Login = () => {
       <Button type="submit" colorScheme="teal" variant="solid" w="100%" mt={5}>
         Submit
       </Button>
-    </form>
+    </form> : 
+    <Button onClick={handleLogOut} colorScheme="teal" variant="solid" w="20%" mt={5}>
+        Log Out
+      </Button>  }
+  </>
   )
 }
 

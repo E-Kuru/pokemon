@@ -6,18 +6,22 @@ import NotFound from "./pages/NotFound"
 import Nav from "./components/Nav"
 import { Center } from "@chakra-ui/react"
 
+import {LogContextProvider} from './contexts/IsLog'
+
 const App = () => {
   return (
-    <BrowserRouter>
-      <Nav />
-      <Center height="100vh">
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Center>
-    </BrowserRouter>
+    <LogContextProvider>
+      <BrowserRouter>
+        <Nav />
+        <Center height="100vh">
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Center>
+      </BrowserRouter>
+    </LogContextProvider>
   )
 }
 
